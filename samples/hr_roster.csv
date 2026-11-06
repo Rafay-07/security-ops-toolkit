@@ -1,0 +1,6 @@
+username,status,role
+jsmith,active,analyst
+alee,active,analyst
+bkhan,active,engineer
+cdiaz,leave,analyst
+olduser,terminated,analyst

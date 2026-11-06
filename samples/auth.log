@@ -1,0 +1,15 @@
+2026-10-12T08:01:10 login fail user=jsmith ip=203.0.113.7
+2026-10-12T08:01:14 login fail user=jsmith ip=203.0.113.7
+2026-10-12T08:01:19 login fail user=jsmith ip=203.0.113.7
+2026-10-12T08:01:25 login fail user=jsmith ip=203.0.113.7
+2026-10-12T08:01:31 login fail user=jsmith ip=203.0.113.7
+2026-10-12T08:01:40 login success user=jsmith ip=203.0.113.7
+2026-10-12T09:15:00 login fail user=alee ip=198.51.100.23
+2026-10-12T09:15:02 login fail user=bkhan ip=198.51.100.23
+2026-10-12T09:15:04 login fail user=cdiaz ip=198.51.100.23
+2026-10-12T09:15:06 login fail user=dpatel ip=198.51.100.23
+2026-10-12T09:15:08 login fail user=enguyen ip=198.51.100.23
+2026-10-12T09:15:10 login fail user=fmoreau ip=198.51.100.23
+2026-10-12T10:00:00 login success user=alee ip=10.0.4.12
+2026-10-12T10:05:00 login fail user=bkhan ip=10.0.4.30
+2026-10-12T10:05:30 login success user=bkhan ip=10.0.4.30

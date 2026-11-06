@@ -1,0 +1,7 @@
+username,role,groups,last_login
+jsmith,analyst,reporting,2026-10-12
+alee,analyst,reporting;domain-admins,2026-10-12
+bkhan,engineer,deploy,2026-10-12
+cdiaz,analyst,reporting,2026-06-01
+svc_backup,service,backup,2026-10-11
+olduser,analyst,reporting,2026-03-02
