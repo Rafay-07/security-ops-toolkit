@@ -7,15 +7,19 @@ import csv
 import sys
 from datetime import date
 
+# An account with no login for more than this many days is flagged as stale.
 STALE_DAYS = 90
 
 
 def read(path):
+    """Read a CSV file into a list of dictionaries, one per row."""
     with open(path, newline="") as f:
         return list(csv.DictReader(f))
 
 
 def review(accounts, roster, policy, today):
+    """Compare every account with the HR roster and the role policy. Returns the findings."""
+    # Index the roster by username and the policy by role, so each lookup below is direct.
     people = {r["username"]: r for r in roster}
     allowed = {p["role"]: set(p["allowed_groups"].split(";")) for p in policy}
     findings = []
@@ -24,6 +28,7 @@ def review(accounts, roster, policy, today):
         groups = set(filter(None, acct["groups"].split(";")))
         person = people.get(user)
 
+        # Check 1: does the account belong to a current employee?
         if role == "service":
             pass  # service accounts are not on the HR roster; reviewed by owner instead
         elif person is None:
@@ -33,10 +38,12 @@ def review(accounts, roster, policy, today):
         elif person["status"] == "leave":
             findings.append((user, "medium", "Employee on leave still has active access", "Suspend until return"))
 
+        # Check 2: least privilege. Any group the role does not allow is extra access.
         extra = groups - allowed.get(role, set())
         if extra:
             findings.append((user, "high", f"Groups beyond {role} role: {', '.join(sorted(extra))}", "Remove extra groups"))
 
+        # Check 3: an account nobody has used for a long time may no longer be needed.
         days = (today - date.fromisoformat(acct["last_login"])).days
         if days > STALE_DAYS:
             findings.append((user, "low", f"No login for {days} days", "Confirm still needed"))
@@ -46,6 +53,7 @@ def review(accounts, roster, policy, today):
 def main(args):
     accounts, roster, policy = (read(p) for p in args)
     findings = review(accounts, roster, policy, date.today())
+    # Save the findings as a CSV for the reviewer, and print them as well.
     with open("access_review_findings.csv", "w", newline="") as f:
         w = csv.writer(f)
         w.writerow(["username", "severity", "finding", "recommended_action"])
